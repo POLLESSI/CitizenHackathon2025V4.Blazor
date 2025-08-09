@@ -1,0 +1,121 @@
+﻿@page "/user"
+@using CitizenHackathon2025V4.Blazor.Client.Pages.GenericEntities
+@using CitizenHackathon2025V4.Blazor.Client.Models
+@using CitizenHackathon2025V4.Blazor.Client.Shared.Suggestion
+@inject IJSRuntime JS
+@inject OutZenSignalRService SignalRService
+@inject UserService UserService
+
+
+<h3>User Information</h3>
+
+<GenericEntityList TModel="UserModel"
+                   Hub="/hubs/userhub"
+                   Event="notifyNewUser"
+                   LoadFunc="@LoadUsersAsync" />
+
+@if (Suggestions?.Any() == true)
+{
+    <div class="detail-container">
+        <p>Info on suggestion</p>
+    </div>
+
+    <div class="card">Statistics</div>
+
+    <button class="btn">Send</button>
+    <div class="ultra-luxe">
+        <User /> 
+    </div>
+}
+
+@code {
+    [Parameter] public IEnumerable<SuggestionDTO> Suggestions { get; set; } = [];
+
+    private async Task<List<UserModel>> LoadUsersAsync()
+    {
+        var result = await UserService.GetAllActiveUsersAsync();
+        return result.ToList();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @* // Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved. *@

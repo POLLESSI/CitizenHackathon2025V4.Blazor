@@ -1,0 +1,139 @@
+﻿:root {
+    --dawn-bg: #ffe5b4;
+    --dawn-color: #333;
+    /* etc. */
+}
+/* Dawn (Before 8h) */
+.dawn-theme {
+    background-color: var(--dawn-bg);
+    color: var(--dawn-color);
+}
+
+    .dawn-theme .dynamic-bg {
+        filter: brightness(0.95) sepia(0.1);
+    }
+
+.day-theme .dynamic-bg {
+    filter: brightness(1);
+}
+
+/* Day (8h - 17h) */
+.day-theme {
+    background-color: #d9f2ff;
+    color: #222;
+}
+
+/* Sunset (17h - 20h) */
+.sunset-theme {
+    background: linear-gradient(135deg, #fdbb2d, #cf8bf3);
+    color: #fff;
+}
+
+    .sunset-theme .dynamic-bg {
+        filter: brightness(0.9) sepia(0.2);
+    }
+
+/* Night (After 20h) */
+.night-theme {
+    background: radial-gradient(ellipse at top, #0d1b2a, #1b263b);
+    color: #ddd;
+}
+
+    .night-theme .dynamic-bg {
+        filter: brightness(0.6) contrast(1.2);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.*/

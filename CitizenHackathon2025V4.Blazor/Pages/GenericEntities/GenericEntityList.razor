@@ -1,0 +1,190 @@
+﻿@using CitizenHackathon2025V4.Blazor.Client.Common.SignalR
+@typeparam TModel
+@inherits SignalRComponentBase<TModel>
+@inject IJSRuntime JS
+
+<h3>List of @typeof(TModel).Name</h3>
+
+@if (IsLoading)
+{
+    <p>Loading...</p>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <p class="text-danger">@ErrorMessage</p>
+}
+else
+{
+    <div class="table-wrapper" @ref="ScrollContainerRef" @onscroll="HandleScroll"
+         style="height: 300px; overflow-y: auto; border: 1px solid #444;">
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th>Valeur 1</th>
+                    <th>Valeur 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (RowTemplate != null)
+                {
+                    foreach (var item in VisibleItems)
+                    {
+                        @RowTemplate(item)
+                    }
+                }
+                else
+                {
+                    foreach (var item in VisibleItems)
+                    {
+                        <tr>
+                            <td>@GetProperty(item, "Propriete1")</td>
+                            <td>@GetProperty(item, "Propriete2")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private string DebugNamespace => typeof(GenericEntityList<>).Namespace;
+    private ElementReference ScrollContainerRef;
+    private int currentIndex = 0;
+    private int batchSize = 10;
+    private List<TrafficConditionModel> TrafficConditionsList = new();
+    [Inject] public TrafficConditionService TrafficService { get; set; }
+
+    [Parameter] public string Hub { get; set; } = string.Empty;
+    [Parameter] public string Event { get; set; } = string.Empty;
+    [Parameter] public Func<Task<List<TModel>>> LoadFunc { get; set; }
+    [Parameter] public RenderFragment<TModel> RowTemplate { get; set; }
+
+    protected override string HubUrl => Hub;
+    protected override string HubEventName => Event;
+    protected override Task<List<TModel>> LoadDataAsync()
+        => LoadFunc?.Invoke() ?? Task.FromResult(new List<TModel>());
+
+    protected override async Task OnInitializedAsync()
+    {
+        var rawTraffic = await TrafficService.GetLatestTrafficConditionAsync();
+        TrafficConditionsList = rawTraffic
+            .Where(t => t is not null)
+            .Select(t => t!)
+            .ToList();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            LoadMoreItems();
+            await JS.InvokeVoidAsync("trafficInterop.updateTrafficMarkers", TrafficConditionsList);
+        }
+    }
+
+    private void LoadMoreItems()
+    {
+        var nextBatch = Items.Skip(currentIndex).Take(batchSize).ToList();
+        VisibleItems.AddRange(nextBatch);
+        currentIndex += batchSize;
+        StateHasChanged();
+    }
+
+    private async Task HandleScroll()
+    {
+        var scrollTop = await JS.InvokeAsync<int>("getScrollTop", ScrollContainerRef);
+        var scrollHeight = await JS.InvokeAsync<int>("getScrollHeight", ScrollContainerRef);
+        var clientHeight = await JS.InvokeAsync<int>("getClientHeight", ScrollContainerRef);
+
+        if (scrollTop + clientHeight >= scrollHeight - 5 && currentIndex < Items.Count)
+        {
+            LoadMoreItems();
+        }
+    }
+
+    private object GetProperty(TModel item, string propertyName)
+    {
+        var prop = typeof(TModel).GetProperty(propertyName);
+        return prop?.GetValue(item) ?? "-";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*  /*// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.*/ *@

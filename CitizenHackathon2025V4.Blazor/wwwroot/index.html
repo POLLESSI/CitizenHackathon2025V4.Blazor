@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr-BE">
+<head>
+    <meta charset="utf-8" />
+    <title>CitizenHackathon 2025 - OutZen</title>
+    <!-- Globalization loader -->
+    <script>window.BlazorWebAssemblyLoadAllGlobalizationData = true;</script>
+
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<meta name="apple-mobile-web-app-capable" content="yes">-->
+    <!--<meta name="mobile-web-app-capable" content="yes">-->
+    <meta name="theme-color" content="#000000" />          <!--content="#4a90e2"-->
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!-- Favicon + manifest -->
+    <link rel="manifest" href="/manifest.webmanifest" type="application/manifest+json" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png" />
+    <!-- Mobile Compatibility -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <!-- CSS Styles -->
+    <!-- (grouped by type: animations, base, components, themes, global) -->
+    <!-- CSS Styles -->
+    <link href="css/base/reset.css" rel="stylesheet" />
+    <link href="css/base/variables.css" rel="stylesheet" />
+    <link href="css/base/layout.css" rel="stylesheet" />
+    <link href="css/base/site.css" rel="stylesheet" />
+    <link href="css/base/blazor-core.css" rel="stylesheet" />
+    <link href="css/base/app.css" rel="stylesheet" />
+    <link href="css/animations/animations.css" rel="stylesheet" />
+    <link href="css/animations/site.variables.css" rel="stylesheet" />
+    <link href="css/animations/visual-elements.css" rel="stylesheet" />
+    <link href="css/components.css" rel="stylesheet" />
+    <link href="css/themes/theme.css" rel="stylesheet" />
+    <link href="css/themes/theme-ultraluxe.css" rel="stylesheet" />
+    <link href="css/themes/variables-ultraluxe.css" rel="stylesheet" />
+    <link href="css/outzen.css" rel="stylesheet" />
+    <link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
+    <link href="css/external/open-iconic-bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-icons.css" rel="stylesheet" />
+    <link href="js/dist/bundle.css" rel="stylesheet" />
+    <!-- Optional if useful -->
+    <link href="css/SharedStyles.css" rel="stylesheet" />
+    <link href="css/global-styles.css" rel="stylesheet" />
+
+
+    <!-- Leaflet & MarkerCluster -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin />
+    <!-- Chart.js -->
+    <!-- Content Security Policy -->
+    <!--<meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com;
+      font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;
+      img-src 'self' data: blob: https://unpkg.com;
+      connect-src 'self' wss://localhost:* ws://localhost:* http://localhost:* https://localhost:*;
+      object-src 'none';
+      base-uri 'self';
+      frame-ancestors 'self';
+      worker-src 'self' blob:;
+    " />-->
+</head>
+
+<body>
+    <!-- Root App + Loading -->
+    <div id="app">
+        <div class="loading-screen">
+            <h1>OutZen</h1>
+            <p>Loading...</p>
+        </div>
+        <div id="blazor-error-ui">
+            An error has occurred.
+            <a href="" class="reload">Reload</a>
+            <a class="dismiss">×</a>
+        </div>
+    </div>
+
+    <!-- Background Canvas -->
+    <canvas id="geometryCanvas" width="800" height="600"></canvas>
+    <img src="wwwroot/images/icons/day.jpg" alt="Background" style="display: none;" />
+
+    <!-- External JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js" crossorigin="anonymous"></script>
+
+    <!-- ✅ Scripts JavaScript modules (merged if possible) -->
+    <script src="_content/Leaflet/leaflet.js"></script> <!-- ou CDN -->
+    <script src="js/vendor/leaflet.bundle.js"></script> <!-- si tu gardes ton bundle -->
+    <script src="js/app/leafletLogic.js" type="module"></script>
+    <script src="js/app/outzen.module.js" type="module"></script>
+    <script src="js/app/timeEffects.js" type="module"></script>
+    <script src="js/app/wasmUtils.js" type="module"></script>
+
+    <!-- 🎯 Initialisation JS Blazor -->
+    <!-- Main Initialization -->
+    <!--<script type="module">
+        import {
+            initMap,
+            updateCrowdData,
+            updateTraffic,
+            updateSuggestions,
+            updateWeatherForecast,
+            updateCrowdChart,
+            startSignalR,
+            initAnimatedBackground,
+            initScrollAndParallax
+        } from './js/outzen.module.js';
+
+        const map = initMap('leafletMap');
+        initAnimatedBackground();
+        initScrollAndParallax();
+
+        startSignalR("https://localhost:7254/hub/outzen", {
+            crowd: updateCrowdData,
+            traffic: updateTraffic,
+            suggestions: updateSuggestions,
+            weatherForecast: updateWeatherForecast,
+            crowdChart: updateCrowdChart
+        });
+    </script>-->
+    <script type="module">
+        import {
+            OutZenApp
+        } from './js/dist/bundle.js';
+
+        OutZenApp.init("leafletMap", "https://localhost:7254/hub/outzen");
+    </script>
+    <script>
+        //if ('serviceWorker' in navigator) {
+        //    window.addEventListener('load', () => {
+        //        navigator.serviceWorker.register('/service-worker.published.js')
+        //            .then(reg => console.log("✅ Service worker registered:", reg.scope))
+        //            .catch(err => console.error("❌ SW registration failed:", err));
+        //    });
+        //}
+        if ('serviceWorker' in navigator && location.hostname !== "localhost") {
+            navigator.serviceWorker.register('/service-worker.published.js');
+        } else if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.development.js');
+        }
+    </script>
+    <!--<script>
+        ThemeManager.init();
+    </script>-->
+    <script src="js/webassembly.js"></script>
+    <!--<script type="text/javascript" src="https://localhost:44375/_framework/blazor.webassembly.js"></script>-->
+    <!-- ⚙️ Blazor WebAssembly Boot Loader -->
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script type="module" src="js/init.js"></script>
+    <script src="js/simulator.js" defer></script>
+</body>
+</html>

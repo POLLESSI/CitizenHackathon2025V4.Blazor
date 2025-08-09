@@ -1,0 +1,16 @@
+﻿using CitizenHackathon2025V4.Blazor.Client.DTOs;
+using CitizenHackathon2025V4.Blazor.Client.Models;
+
+namespace CitizenHackathon2025V4.Blazor.Client.Services
+{
+    public interface ISignalRService
+    {
+        event Func<object, Task> OnNotify;
+        event Func<CrowdInfoUIDTO, Task> OnCrowdInfoUpdated;
+        event Func<TrafficConditionModel, Task> OnTrafficUpdated;
+        event Func<WeatherForecastModel, Task> OnWeatherForecastUpdated;
+
+        Task StartAsync(string hubUrl, string hubEventName);
+        Task StopAsync();
+    }
+}

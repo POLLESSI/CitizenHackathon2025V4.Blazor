@@ -1,0 +1,155 @@
+﻿@page "/"
+@using CitizenHackathon2025V4.Blazor.Client.Models
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager Navigation
+@inject Blazored.Toast.Services.IToastService ToastService
+@inject IJSRuntime JS
+
+@* <button class="btn btn-primary" @onclick="() => ToastService.ShowSuccess(" It works !", "Success" )">
+    Test the toast
+</button> *@
+
+<PageTitle>OutZen - Home</PageTitle>
+
+<h2>Welcome to the</h2>
+
+<div class="index-hero scroll-fade">
+    <div class="index-svg-background">
+        <!-- Animated decorative SVG -->
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+            <circle cx="50" cy="50" r="40" fill="url(#gradient)" />
+            <defs>
+                <radialGradient id="gradient">
+                    <stop offset="0%" stop-color="#00fff7" />
+                    <stop offset="100%" stop-color="#7f5af0" />
+                </radialGradient>
+            </defs>
+        </svg>
+        <div class="index-noise-overlay"></div>
+    </div>
+
+    <h1 class="index-title">Bienvenue sur OutZen</h1>
+    <p class="index-subtitle">
+        Explorez les événements sereinement, même quand la foule s’en mêle.
+    </p>
+
+    <button class="index-cta" @onclick="ScrollToSuggestions">
+        Découvrir les suggestions
+    </button>
+
+    <div class="orbit scroll-fade">
+        <div class="index-figurine" title="Zen Orbite"></div>
+    </div>
+</div>
+
+<section class="index-section scroll-fade" id="suggestions">
+    <h2>Suggestions Zen</h2>
+    <p>
+        Voici quelques alternatives dans un rayon de 20 km autour de l’événement sélectionné :
+    </p>
+
+    <ul>
+        <li>🌳 Parc Naturel de la Haute Sambre</li>
+        <li>🧘 Cours de yoga en plein air à Gosselies</li>
+        <li>🎭 Théâtre en plein air – La Traviata</li>
+    </ul>
+</section>
+
+<footer class="index-footer">
+    &copy; 2025 OutZen – Zen dans la foule, zen dans la vie.
+</footer>
+
+@code {
+    private List<TrafficConditionModel> TrafficConditionsList = new();
+    [Inject] public TrafficConditionService TrafficService { get; set; }
+
+    private async Task ScrollToSuggestions()
+    {
+        await JS.InvokeVoidAsync("document.getElementById('suggestions').scrollIntoView", new { behavior = "smooth" });
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var rawTraffic = await TrafficService.GetLatestTrafficConditionAsync();
+        TrafficConditionsList = rawTraffic
+            .Where(t => t is not null)
+            .Select(t => t!)
+            .ToList();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("initScrollFade");
+            await JS.InvokeVoidAsync("trafficInterop.updateTrafficMarkers", TrafficConditionsList);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* // Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved. *@

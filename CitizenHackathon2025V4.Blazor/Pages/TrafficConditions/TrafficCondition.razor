@@ -1,0 +1,112 @@
+﻿@page "/trafficcondition"
+@using CitizenHackathon2025V4.Blazor.Client.Common.SignalR
+@using CitizenHackathon2025V4.Blazor.Client.Pages.GenericEntities
+@inherits SignalRComponentBase<TrafficConditionModel>
+@inject OutZenSignalRService SignalRService
+@inject TrafficConditionService TrafficConditionService
+
+<h3>Traffic condition Information</h3>
+
+<GenericEntityList TModel="TrafficConditionModel"
+                   Hub="/hubs/trafficconditionhub"
+                   Event="notifyNewTrafficCondition"
+                   LoadFunc="@LoadDataAsync" />
+
+@if (Suggestions?.Any() == true)
+{
+    <p>@Suggestions.Count() suggestions nearby</p>
+    <button class="btn btn-primary" @onclick="ShowOnMap">See on map</button>
+    <div class="detail-container">
+        <p>Info on suggestion</p>
+    </div>
+
+    <div class="card">Statistics</div>
+
+    <button class="btn">Send</button>
+    <div class="ultra-luxe">
+        <TrafficComponent />
+    </div>
+}
+
+@code {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* // Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved. *@

@@ -1,0 +1,335 @@
+﻿:root {
+    --accent-color: #bb86fc;
+    --nav-bg: #111;
+    --text-color: #e0e0e0;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* -------------------------------
+   OVERALL MENU STRUCTURE
+-------------------------------- */
+.nav-container {
+    background: var(--nav-bg);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    font-family: 'Poppins', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: #00fff7;
+    text-decoration: none;
+}
+
+/* -------------------------------
+   HAMBURGER BUTTON
+-------------------------------- */
+.nav-toggle,
+.hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 1001;
+}
+
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 24px;
+        background-color: white;
+        border-radius: 2px;
+    }
+
+/* Hamburger animation */
+.menu-toggle:checked + .hamburger,
+.menu-toggle:checked + .hamburger::before,
+.menu-toggle:checked + .hamburger::after {
+    transform: rotate(45deg) translate(0.35rem, 0.35rem);
+    opacity: 0;
+    transform: rotate(-45deg) translate(0.35rem, -0.35rem);
+}
+
+/* Hover pulse effect animation */
+.hamburger:hover {
+    animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+/* -------------------------------
+   NAVIGATION LINKS
+-------------------------------- */
+.nav-links {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+    .nav-links.collapsed {
+        display: none;
+    }
+
+    .nav-links li a,
+    .sidebar a,
+    .nav-link {
+        text-decoration: none;
+        color: #d7d7d7;
+        font-weight: 500;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+        .nav-links li a:hover,
+        .nav-links li .active,
+        .nav-link:hover,
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            font-weight: 700;
+            box-shadow: inset 2px 0 0 #bb86fc;
+        }
+
+/* -------------------------------
+   SIDEBAR FOR MOBILE
+-------------------------------- */
+.sidebar {
+    position: relative;
+    width: 250px;
+    padding-top: 1rem;
+    z-index: 1000;
+    backdrop-filter: none;
+    box-shadow: none;
+}
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar li {
+        margin: 1rem 0;
+        padding: 0 1rem;
+    }
+
+/* Hide sidebar on mobile except toggle */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .menu-toggle:checked ~ .sidebar {
+        display: block;
+    }
+}
+
+@media (max-width: 640px) {
+    .sidebar {
+        display: none;
+    }
+
+    .menu-toggle:checked ~ .sidebar {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .menu-toggle:checked ~ .sidebar {
+        display: block;
+    }
+}
+
+/* -------------------------------
+   DARK MODE TOGGLE
+-------------------------------- */
+.dark-toggle {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* -------------------------------
+   ANIMATIONS
+-------------------------------- */
+.slide-in {
+    animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 1s ease-out both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -------------------------------
+   SCROLLABLE NAV
+-------------------------------- */
+.nav-scrollable {
+    height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #bb86fc #1a1a1a;
+}
+
+    .nav-scrollable::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .nav-scrollable::-webkit-scrollbar-thumb {
+        background-color: #bb86fc;
+        border-radius: 3px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.*/

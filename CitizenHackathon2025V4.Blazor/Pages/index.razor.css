@@ -1,0 +1,162 @@
+﻿/* =============================
+   index.razor.css – Ultra Luxury Theme
+   Styles scoped to the home page
+============================= */
+
+/* === Hero section === */
+.index-hero {
+    background: linear-gradient(145deg, #0e0e0e, #1a1a1a);
+    text-align: center;
+    padding: 4rem 2rem;
+    border-radius: 24px;
+    box-shadow: 0 0 30px rgba(0, 255, 247, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* === Main title with neon animation === */
+.index-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, var(--accent-color, #7f5af0), #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* === Subtitle === */
+.index-subtitle {
+    font-size: 1.5rem;
+    color: #bbb;
+    margin-bottom: 2rem;
+}
+
+/* === Main CTA button === */
+.index-cta {
+    background-color: var(--accent-color, #00fff7);
+    color: #000;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 0 10px var(--accent-color, #00fff7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .index-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 20px var(--accent-color, #00fff7);
+    }
+
+/* === Glow animation for text === */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px var(--accent-color, #00fff7);
+    }
+
+    to {
+        text-shadow: 0 0 20px var(--accent-color, #00fff7), 0 0 10px #fff;
+    }
+}
+
+/* === SVG & Background Effect === */
+.index-svg-background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    perspective: 800px;
+    filter: blur(10px) brightness(0.7);
+    transform: translateZ(-1px);
+    will-change: transform;
+}
+
+    .index-svg-background svg {
+        width: 110vw;
+        height: 110vh;
+        transition: transform 0.1s ease-out;
+        transform-origin: center;
+    }
+
+/* === Rotation animation (planets, objects) === */
+.index-noise-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/noise-texture.png');
+    opacity: 0.04;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* === Rotation animation (planets, objects) === */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.orbit {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    animation: rotate 10s linear infinite;
+}
+
+.index-figurine {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 50px;
+    height: 50px;
+    background: url("/images/background.jpg");
+    background-size: cover;
+    transform: translate(-50%, -50%);
+    animation: rotate 8s linear infinite;
+}
+
+/* === Scroll fade animation if enabled in theme.css === */
+.scroll-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+    .scroll-fade.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* === Local footer === */
+.index-footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #777;
+    border-top: 1px solid #333;
+    margin-top: 4rem;
+}
+
+/* === Secondary headings (example: h6 in an index section) === */
+.index-section h6 {
+    color: orange;
+}
+
+/* === Responsive (mobile) === */
+@media (max-width: 768px) {
+    .index-title {
+        font-size: 2.2rem;
+    }
+
+    .index-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .index-cta {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}
