@@ -1,40 +1,70 @@
-﻿using CitizenHackathon2025V4.Blazor.Client.Services;
+﻿using System.Threading;
 using CitizenHackathon2025V4.Blazor.Client.Models;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace CitizenHackathon2025V4.Blazor.Client.Pages.Events
 {
-    public partial class EventDetail : ComponentBase
+    public partial class EventDetail : ComponentBase, IDisposable
     {
-#nullable disable
-        [Inject]
-        public HttpClient? Client { get; set; }
+        [Inject] public HttpClient Client { get; set; }
+
         public EventModel? CurrentEvent { get; set; }
 
-        [Parameter]
-        public int Id { get; set; }
+        [Parameter] public int Id { get; set; }
+
+        private CancellationTokenSource? _cts;
+
         protected override async Task OnParametersSetAsync()
         {
-            await GetEvent();
-        }
-        private async Task GetEvent()
-        {
-            if (Id <= 0) return;
-            using (HttpResponseMessage message = await Client.GetAsync($"api/Event/{Id}"))
+            // Cancels any previous request
+            _cts?.Cancel();
+            _cts = new CancellationTokenSource();
+
+            if (Id > 0)
             {
+                await GetEventAsync(_cts.Token);
+            }
+            else
+            {
+                CurrentEvent = null; // Reset if invalid Id
+            }
+        }
+
+        private async Task GetEventAsync(CancellationToken token)
+        {
+            try
+            {
+                HttpResponseMessage message = await Client.GetAsync($"api/event/{Id}", token);
+
                 if (message.IsSuccessStatusCode)
                 {
-                    string json = await message.Content.ReadAsStringAsync();
+                    string json = await message.Content.ReadAsStringAsync(token);
                     CurrentEvent = JsonConvert.DeserializeObject<EventModel>(json);
                 }
+                else
+                {
+                    CurrentEvent = null;
+                }
             }
+            catch (TaskCanceledException)
+            {
+                // Normal cancellation → we ignore
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error loading event {Id} : {ex.Message}");
+                CurrentEvent = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
         }
     }
 }
-
 
 
 

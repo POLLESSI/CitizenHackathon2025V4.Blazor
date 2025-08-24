@@ -1,37 +1,65 @@
-﻿using CitizenHackathon2025V4.Blazor.Client.Models;
+﻿using System.Threading;
+using CitizenHackathon2025V4.Blazor.Client.Models;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace CitizenHackathon2025V4.Blazor.Client.Pages.Users
 {
-    public partial class UserDetail
+    public partial class UserDetail 
     {
-    #nullable disable
-        [Inject]
-        public HttpClient? Client { get; set; }
-        public UserModel? CurrentUser { get; set; }
-        [Parameter]
-        public int Id { get; set; }
-        protected override async Task OnParametersSetAsync()
-        {
-            await GetUsers();
-        }
+        //[Inject] public HttpClient? Client { get; set; }
+        //public UserModel? CurrentUser { get; set; }
 
-        private async Task GetUsers()
-        {
-            if (Id <= 0) return;
+        //[Parameter] public int Id { get; set; }
 
-            using (HttpResponseMessage message = await Client.GetAsync($"api/User/{Id}"))
-            {
-                if (message.IsSuccessStatusCode)
-                {
-                    string json = await message.Content.ReadAsStringAsync();
-                    CurrentUser = JsonConvert.DeserializeObject<UserModel>(json);
-                }
-            }
-        }
+        //private CancellationTokenSource? _cts;
+
+        //protected override async Task OnParametersSetAsync()
+        //{
+        //    _cts?.Cancel();
+        //    _cts = new CancellationTokenSource();
+
+        //    if (Id > 0)
+        //    {
+        //        await GetUserAsync(_cts.Token);
+        //    }
+        //    else
+        //    {
+        //        CurrentUser = null;
+        //    }
+        //}
+
+        //protected async Task GetUserAsync(CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        HttpResponseMessage message = await Client!.GetAsync($"api/user/{Id}", token);
+
+        //        if (message.IsSuccessStatusCode)
+        //        {
+        //            string json = await message.Content.ReadAsStringAsync(token);
+        //            CurrentUser = JsonConvert.DeserializeObject<UserModel>(json);
+        //        }
+        //        else
+        //        {
+        //            CurrentUser = null;
+        //        }
+        //    }
+        //    catch (TaskCanceledException)
+        //    {
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.Error.WriteLine($"Error loading user {Id} : {ex.Message}");
+        //        CurrentUser = null;
+        //    }
+        //}
+
+        //public void Dispose()
+        //{
+        //    _cts?.Cancel();
+        //    _cts?.Dispose();
+        //}
     }
 }
 

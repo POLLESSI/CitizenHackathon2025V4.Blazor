@@ -4,21 +4,21 @@
     Test the toast
 </button> *@
 
-<h3>CrowdInfoDetail</h3>
+<h3>Crowd Info Detail</h3>
 
 @if (CurrentCrowdInfo is not null)
 {
     <div class="detail-container bordeaux-background">
-        <p>Location Name : @CurrentCrowdInfo.LocationName</p>
-        <p>Latitude : @CurrentCrowdInfo.Latitude</p>
-        <p>Longitude : @CurrentCrowdInfo.Longitude</p>
-        <p>CrowdLevel : @CurrentCrowdInfo.CrowdLevel</p>
-        <p>TimeStamp : @CurrentCrowdInfo.Timestamp</p>
+        <p>Name : @CurrentCrowdInfo.LocationName </p>
+        <p>Authority : @CurrentCrowdInfo.Latitude</p>
+        <p>License Number : @CurrentCrowdInfo.Longitude</p>
+        <p>URL : @CurrentCrowdInfo.CrowdLevel</p>
+        <p>Date : @CurrentCrowdInfo.Timestamp</p>
     </div>
 }
 else
 {
-    <p>Loading Crowd infos details...</p>
+    <p>Loading Crowd Info details...</p>
 }
 
 

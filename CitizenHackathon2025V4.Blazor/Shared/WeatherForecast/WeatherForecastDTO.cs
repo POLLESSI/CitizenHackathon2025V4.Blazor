@@ -3,9 +3,13 @@
     public class WeatherForecastDTO
     {
 #nullable disable
-        public DateTime DateWeather { get; set; }
-        public float TemperatureC { get; set; }
-        public string Summary { get; set; }
+        public int Id { get; set; }
+        public DateTime ForecastTime { get; set; }          // Date/time of forecast
+        public double TemperatureC { get; set; }            // °C
+        public string Summary { get; set; } = "";           // Ex: "Rain", "Sunny", "Cloudy"
+        public int PrecipitationProbability { get; set; }   // %
+        public double WindSpeedKmh { get; set; }            // km/h
+        public string Icon { get; set; } = "";
     }
 }
 

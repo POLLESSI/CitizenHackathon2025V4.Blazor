@@ -15,7 +15,7 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
         public async Task<IEnumerable<GptInteractionModel>> GetAllInteractions()
         {
-            var response = await _httpClient.GetAsync($"api/gpt/all");
+            var response = await _httpClient.GetAsync($"gpt/all");
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<IEnumerable<GptInteractionModel>>();
@@ -24,7 +24,7 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
         public async Task<IEnumerable<GptInteractionModel>> GetById(int id)
         {
-            var response = await _httpClient.GetAsync($"api/gpt/{id}");
+            var response = await _httpClient.GetAsync($"gpt/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<IEnumerable<GptInteractionModel>>();
@@ -51,7 +51,7 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         //}
         public async Task AskGpt(GptInteractionModel prompt)
         {
-            var response = await _httpClient.PostAsJsonAsync("api/gpt/ask-gpt", prompt);
+            var response = await _httpClient.PostAsJsonAsync("gpt/ask-gpt", prompt);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Failed to save suggestion");
@@ -59,7 +59,7 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
         public async Task Delete(int id)
         {
-            var response = await _httpClient.DeleteAsync($"api/gpt/{id}");
+            var response = await _httpClient.DeleteAsync($"gpt/{id}");
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Failed to delete suggestion");
@@ -67,7 +67,7 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
         public async Task ReplayInteraction(int id)
         {
-            var response = await _httpClient.PostAsJsonAsync($"api/gpt/replay/{id}", new { });
+            var response = await _httpClient.PostAsJsonAsync($"gpt/replay/{id}", new { });
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Failed to replay interaction");
@@ -75,3 +75,91 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.

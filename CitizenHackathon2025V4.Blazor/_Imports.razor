@@ -1,24 +1,16 @@
 ﻿@using System.Net.Http
-@using Blazored.Toast
-@using System.Net.Http
-@using Microsoft.JSInterop
-@using System.Net.Http.Json
-@using Blazored.Toast.Services
-@using Microsoft.AspNetCore.Components.Forms
-@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Web
-@using Microsoft.AspNetCore.Components.Web.Virtualization
-@using Microsoft.AspNetCore.Components.WebAssembly.Http
-@using CitizenHackathon2025V4.Blazor.Client.Models
-@using CitizenHackathon2025V4.Blazor.Client.Enums
-@using CitizenHackathon2025V4.Blazor.Client.Components
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.JSInterop
+@using CitizenHackathon2025V4.Blazor
+@using CitizenHackathon2025V4.Blazor.Client.Shared
 @using CitizenHackathon2025V4.Blazor.Client.Pages
-@using CitizenHackathon2025V4.Blazor.Client.DTOs
-@using CitizenHackathon2025V4.Blazor.Client
-@using Microsoft.AspNetCore.SignalR.Client
-@using CitizenHackathon2025V4.Blazor.Client.Services
-@using CitizenHackathon2025V4.Blazor.Client.Pages.GenericEntities
-@using CitizenHackathon2025V4.Blazor.Client.Common.SignalR
+@using CitizenHackathon2025V4.Blazor.Client.Enums
+@using CitizenHackathon2025V4.Blazor.Client.Models
+
+@attribute [Authorize]
 
 @inject IJSRuntime JS
 

@@ -1,0 +1,175 @@
+﻿@page "/place"
+@using CitizenHackathon2025V4.Blazor.Client.Models
+@inject IJSRuntime js
+
+<span class="fas fa-certificate me-2"></span> Certifications
+
+<h3>Places List</h3>
+
+<div class="table-wrapper draggable-container" @ref="ScrollContainerRef" @onscroll="HandleScroll" style="height: 300px; overflow-y: auto; border: 1px solid #444;">
+    <table class="table table-striped table-dark styled-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Capacity</th>
+                <th>Tag</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PlaceModel ce in Places)
+            {
+                <tr>
+                    <td>•</td>
+                    <td>@ce.Name</td>
+                    <td>@ce.Capacity</td>
+                    <td>@ce.Tag</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-info" @onclick="() => ClickInfo(ce.Id)">Info</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<hr />
+
+@if(SelectedId > 0)
+{
+    <div class="draggable-container detail-wrapper">
+        <PlaceDetail id="SelectedId"></PlaceDetail>
+    </div>
+}
+
+<hr />
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles"></script>
+
+@code {
+    #nullable disable
+    private List<PlaceModel> allPlaces = new(); // All elements
+    private List<PlaceModel> visiblePlaces = new(); // Those to display
+    private int batchSize = 5;
+    private int currentIndex = 0;
+    private ElementReference ScrollContainerRef;
+
+    protected override void OnInitialized()
+    {
+        // Simulates a data source
+        for (int i = 1; i <= 50; i++)
+        {
+            allPlaces.Add(new PlaceModel { Id = i, Name = $"Place {i}" });
+        }
+
+        LoadMoreItems();
+    }
+    
+    private void LoadMoreItems()
+    {
+        var nextItems = allPlaces.Skip(currentIndex).Take(batchSize);
+        visiblePlaces.AddRange(nextItems);
+        currentIndex += batchSize;
+    }
+
+    private async Task HandleScroll()
+    {
+        var scrollTop = await JS.InvokeAsync<int>("getScrollTop", ScrollContainerRef);
+        var scrollHeight = await JS.InvokeAsync<int>("getScrollHeight", ScrollContainerRef);
+        var clientHeight = await JS.InvokeAsync<int>("getClientHeight", ScrollContainerRef);
+
+        if (scrollTop + clientHeight >= scrollHeight - 5)
+        {
+            if (currentIndex < allPlaces.Count)
+            {
+                LoadMoreItems();
+                StateHasChanged();
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @* // Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved. *@

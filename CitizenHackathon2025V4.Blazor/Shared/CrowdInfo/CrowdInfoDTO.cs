@@ -2,10 +2,17 @@
 {
     public class CrowdInfoDTO
     {
-    #nullable disable
-        public string LocationName { get; set; }
-        public int CrowdLevel { get; set; } // 0-5
-        public DateTime Timestamp { get; set; }
+#nullable disable
+        public int Id { get; set; }                         // Unique identifier
+        public string LocationName { get; set; } = "";      // Location name
+        public string Latitude { get; set; }                // Geo position
+        public string Longitude { get; set; }
+        public string CrowdLevel { get; set; }                 // Crowd level (0-10)
+        public DateTime Timestamp { get; set; }             // UTC Timestamp
+        public double Density { get; set; }                 // Persons per m², optional
+        
+        public string Source { get; set; } = "";            // "Simulation", "Sensor", "User", ...
+        
     }
 }
 

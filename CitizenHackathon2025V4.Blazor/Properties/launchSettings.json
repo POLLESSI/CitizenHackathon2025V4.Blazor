@@ -1,37 +1,75 @@
+//{
+//  "profiles": {
+//    "http": {
+//      "commandName": "Project",
+//      "launchBrowser": true,
+//      "environmentVariables": {
+//        "ASPNETCORE_ENVIRONMENT": "Development",
+//        "DOTNET_BROWSER_LINK_ENABLED": "false"
+//      },
+//      "dotnetRunMessages": true,
+//      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+//      "applicationUrl": "http://localhost:5293"
+//    },
+//    "https": {
+//      "commandName": "Project",
+//      "launchBrowser": true,
+//      "launchUrl": "https://localhost:7254/",
+//      "environmentVariables": {
+//        "ASPNETCORE_ENVIRONMENT": "Development",
+//        "DOTNET_BROWSER_LINK_ENABLED": "false"
+//      },
+//      "dotnetRunMessages": true,
+//      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+//      "applicationUrl": "https://localhost:7144;http://localhost:5293",
+//      "nativeDebugging": false,
+//      "sqlDebugging": false
+//    },
+//    "IIS Express": {
+//      "commandName": "IISExpress",
+//      "launchBrowser": true,
+//      "environmentVariables": {
+//        "ASPNETCORE_ENVIRONMENT": "Development",
+//        "DOTNET_BROWSER_LINK_ENABLED": "false"
+//      },
+//      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
+//    }
+//  },
+//  "iisSettings": {
+//    "windowsAuthentication": false,
+//    "anonymousAuthentication": true,
+//    "iisExpress": {
+//      "applicationUrl": "http://localhost:17079",
+//      "sslPort": 44330
+//    }
+//  }
+//}
+
 {
-  "iisSettings": {
-    "iisExpress": {
-      "applicationUrl": "http://localhost:17079",
-      "sslPort": 44330
-    }
-  },
   "profiles": {
     "http": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5300",
       "launchBrowser": true,
+      "dotnetRunMessages": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "applicationUrl": "http://localhost:5293",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_BROWSER_LINK_ENABLED": "false"
       }
     },
     "https": {
       "commandName": "Project",
+      "applicationUrl": "https://localhost:7260;http://localhost:5300",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:7260/",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "applicationUrl": "https://localhost:7144;http://localhost:5293",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
+      "nativeDebugging": true,
+      "sqlDebugging": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_BROWSER_LINK_ENABLED": "false"
       }
     }
   }

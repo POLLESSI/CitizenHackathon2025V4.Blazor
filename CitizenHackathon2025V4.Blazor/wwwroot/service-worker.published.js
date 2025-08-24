@@ -29,7 +29,7 @@
 //    console.log('📦 [SW] Installation...');
 //    event.waitUntil(
 //        caches.open(CACHE_NAME).then(cache => {
-//            console.log('📦 [SW] Mise en cache des ressources statiques...');
+//            console.log('📦 [SW] Caching static resources...');
 //            return cache.addAll(ASSETS_TO_CACHE);
 //        })
 //    );
@@ -45,7 +45,7 @@
 //                keys
 //                    .filter(key => key !== CACHE_NAME)
 //                    .map(oldKey => {
-//                        console.log('🧹 [SW] Suppression du cache obsolète :', oldKey);
+//                        console.log('🧹 [SW] Deleting obsolete cache :', oldKey);
 //                        return caches.delete(oldKey);
 //                    })
 //            );
@@ -87,7 +87,7 @@
 //                })
 //                .catch(() => {
 //                    // Optional: return from a fallback (e.g.: offline page)
-//                    // return caches.match('/offline.html');
+//                    // return caches.match('/offline.html', '/randompong.html');
 //                    return caches.match('offline.html');
 //                    });
 //                });

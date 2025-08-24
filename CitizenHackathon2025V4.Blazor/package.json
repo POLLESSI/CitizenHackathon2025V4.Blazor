@@ -1,9 +1,0 @@
-{
-  "name": "citizenhackathon-js",
-  "version": "1.0.0",
-  "description": "Modules JS pour Blazor WASM",
-  "scripts": {
-    "minify": "uglifyjs wwwroot/js/**/*.js -m -c -o wwwroot/js/dist/app.min.js"
-  },
-  "devDependencies": {}
-}

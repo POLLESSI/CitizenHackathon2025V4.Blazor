@@ -14,7 +14,7 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
         public async Task<IEnumerable<PlaceModel?>> GetLatestPlaceAsync()
         {
-            var response = await _httpClient.GetAsync("api/place/latest");
+            var response = await _httpClient.GetAsync("place/latest");
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<IEnumerable<PlaceModel?>>();
@@ -23,7 +23,7 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
         public async Task<PlaceModel> SavePlaceAsync(PlaceModel @place)
         {
-            var response = await _httpClient.PostAsJsonAsync("api/place", @place);
+            var response = await _httpClient.PostAsJsonAsync("place", @place);
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<PlaceModel>();
@@ -38,3 +38,89 @@ namespace CitizenHackathon2025V4.Blazor.Client.Services
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.

@@ -1,30 +1,10 @@
-﻿@inject Blazored.Toast.Services.IToastService ToastService
+﻿@using CitizenHackathon2025V4.Blazor.Client.Models
+@inherits UserDetailBase
 
-@* <button class="btn btn-primary" @onclick="() => ToastService.ShowSuccess(" It works !", "Success" )">
-    Test the toast
-</button> *@
-
-<h3>User Detail</h3>
-
-@if (CurrentUser is not null)
-{
-    <div class="detail-container bordeaux-background">
-        <p>Email : @CurrentUser.Email</p>
-        <p>PasswordHash : @CurrentUser.PasswordHash</p>
-        <p>SecurityStamp : @CurrentUser.SecurityStamp</p>
-        <p>Role : @CurrentUser.Role</p>
-        <p>Status : @CurrentUser.Status</p>
-    </div>
-}
-else
-{
-    <p>Loading Users details...</p>
-}
-
-
-@code {
-
-}
+<div class="user-detail">
+    <p><strong>Email:</strong> @CurrentUser?.Email</p>
+    <p><strong>Role:</strong> @CurrentUser?.Role</p>
+</div>
 
 
 

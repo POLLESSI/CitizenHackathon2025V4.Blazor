@@ -1,36 +1,63 @@
-﻿using CitizenHackathon2025V4.Blazor.Client.Models;
+﻿using System.Threading;
+using CitizenHackathon2025V4.Blazor.Client.Models;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace CitizenHackathon2025V4.Blazor.Client.Pages.Suggestions
 {
-    public partial class SuggestionDetail
+    public partial class SuggestionDetail : ComponentBase, IDisposable
     {
-#nullable disable
-        [Inject]
-        public HttpClient? Client { get; set; }
+    #nullable disable
+        [Inject] public HttpClient? Client { get; set; }
         public SuggestionModel? CurrentSuggestion { get; set; }
-        [Parameter]
-        public int Id { get; set; }
+        [Parameter] public int Id { get; set; }
+
+        private CancellationTokenSource? _cts;
         protected override async Task OnParametersSetAsync()
         {
-            await GetSuggestions();
-        }
+            // Cancels any previous request
+            _cts?.Cancel();
+            _cts = new CancellationTokenSource();
 
-        private async Task GetSuggestions()
-        {
-            if (Id <= 0) return;
-
-            using (HttpResponseMessage message = await Client.GetAsync($"api/Suggestion/{Id}"))
+            if (Id > 0)
             {
+                await GetSuggestionAsync(_cts.Token);
+            }
+            else
+            {
+                CurrentSuggestion = null; // Reset if invalid Id
+            }
+        }
+        private async Task GetSuggestionAsync(CancellationToken token)
+        {
+            try
+            {
+                HttpResponseMessage message = await Client.GetAsync($"api/suggestion/{Id}", token);
+
                 if (message.IsSuccessStatusCode)
                 {
-                    string json = await message.Content.ReadAsStringAsync();
+                    string json = await message.Content.ReadAsStringAsync(token);
                     CurrentSuggestion = JsonConvert.DeserializeObject<SuggestionModel>(json);
                 }
+                else
+                {
+                    CurrentSuggestion = null;
+                }
             }
+            catch (TaskCanceledException)
+            {
+                // Normal cancellation → we ignore
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error loading suggestion {Id} : {ex.Message}");
+                CurrentSuggestion = null;
+            }
+        }
+        public void Dispose()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
         }
     }
 }

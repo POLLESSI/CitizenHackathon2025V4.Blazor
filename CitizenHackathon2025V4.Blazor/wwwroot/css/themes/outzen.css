@@ -9,6 +9,9 @@ body {
     color: #f5f5f5;
     overflow-x: hidden;
 }
+    body.night-mode {
+        background-image: url('/images/icons/night.png');
+    }
 
 .scroll-container {
     scroll-behavior: smooth;

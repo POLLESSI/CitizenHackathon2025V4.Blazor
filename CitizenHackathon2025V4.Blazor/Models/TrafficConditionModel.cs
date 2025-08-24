@@ -7,8 +7,86 @@
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public DateTime DateCondition { get; set; }
-        public string IncidentType { get; set; }
+        public string IncidentType { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string Level { get; set; } = string.Empty;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.*/

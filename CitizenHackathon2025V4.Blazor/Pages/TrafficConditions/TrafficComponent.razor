@@ -6,10 +6,6 @@
 @inject Blazored.Toast.Services.IToastService ToastService
 @inject OutZenSignalRService SignalRService
 
-@* <button class="btn btn-primary" @onclick="() => ToastService.ShowSuccess(" It works !", "Success" )">
-    Test the toast
-</button> *@
-
 <h3>Traffic Events</h3>
 
 @if (trafficEvents == null)
@@ -31,59 +27,21 @@ else
                     <div>
                         <strong>@evt.Type</strong> — <em class="@color">@label</em><br />
                         <span class="text-sm text-gray-500 dark:text-gray-300">@evt.Description</span><br />
-                        <span class="text-xs text-gray-400">@evt.StartTime.ToLocalTime().ToString("g")</span>
+                        <span class="text-xs text-gray-400">@evt.StartTime.ToLocalTime():g</span>
                     </div>
                 </div>
             </li>
         }
     </ul>
 }
-<hr class="my-4" />
 
+<hr class="my-4" />
 <h4>Légende :</h4>
 <ul class="flex gap-4 text-sm">
     <li><span class="text-green-500">🟢</span> Fluid</li>
     <li><span class="text-yellow-500">🟡</span> Slow motion</li>
     <li><span class="text-red-500">🔴</span> Cork</li>
 </ul>
-
-@code {
-    private List<TrafficEventDTO>? trafficEvents;
-    private Timer? _refreshTimer;
-
-    protected override async Task OnInitializedAsync()
-    {
-        TrafficService.OnTrafficReceived += events =>
-        {
-            trafficEvents = events;
-            InvokeAsync(StateHasChanged);
-        };
-
-        SignalRService.OnCrowdInfoUpdated += HandleCrowdUpdate;
-        await SignalRService.StartAsync();
-
-        await TrafficService.StartAsync();
-        StartAutoRefresh();
-    }
-    private void HandleCrowdUpdate(CrowdInfoUIDTO data)
-    {
-        Console.WriteLine($"🧠 Received Crowd Info: {data.CrowdLevel}");
-    }
-
-    private void StartAutoRefresh()
-    {
-        _refreshTimer = new Timer(async _ =>
-        {
-            await InvokeAsync(async () => await TrafficService.RequestTraffic());
-        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
-    }
-
-    public void Dispose()
-    {
-        _refreshTimer?.Dispose();
-        SignalRService.OnCrowdInfoUpdated -= HandleCrowdUpdate;
-    }
-}
 
 
 

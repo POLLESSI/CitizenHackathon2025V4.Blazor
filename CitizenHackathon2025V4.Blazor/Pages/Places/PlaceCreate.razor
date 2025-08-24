@@ -1,0 +1,110 @@
+﻿@using CitizenHackathon2025V4.Blazor.Client.Models;
+@using Microsoft.AspNetCore.Components.Forms
+
+<h3>PlaceCreate</h3>
+
+<EditForm Model="NewPlace" @OnSubmit="submit" class="form-control">
+    <div class="form-control-sm">
+        <label>Name : </label>
+        <InputText @bind-Value="NewPlace.Name"></InputText>
+    </div>
+    <div class="form-control-sm">
+        <label>Type :</label>
+        <InputText @bind-Value="NewPlace.Type"></InputText>
+    </div>
+    <div class="form-control-sm">
+        <label>Indoor : </label>
+        <InputNumber @bind-Value="NewPlace.Indoor"></InputNumber>
+    </div>
+    <div class="form-control-sm">
+        <label>Latitude : </label>
+        <InputNumber @bind-Value="NewPlace.Latitude"></InputNumber>
+    </div>
+    <div class="form-control-sm">
+        <label>Longitude : </label>
+        <InputNumber @bind-Value="NewPlace.Longitude"></InputNumber>
+    </div>
+    <div class="form-control-sm">
+        <label>Capacity : </label>
+        <InputText @bind-Value="NewPlace.Capacity"></InputText>
+    </div>
+    <div class="form-control-sm">
+        <label>Tag : </label>
+        <InputText @bind-Value="NewPlace.Tag"></InputText>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</EditForm>
+
+
+@code {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* // Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved. *@

@@ -2,15 +2,92 @@
 {
     public class SuggestionDTO
     {
-#nullable disable
-        public string SuggestedAlternatives { get; set; }
-        public string Reason { get; set; }
-        public DateTime DateSuggestion { get; set; }
-        public string Title { get; set; } = default!;
-        public string Description { get; set; } = default!;
-        public double Latitude { get; set; }
+    #nullable disable
+        public int Id { get; set; }
+        public string Title { get; set; } = "";             // Display title
+        public int User_Id { get; set; }
+        public DateTime Date { get; set; } 
+        public string OriginalPlace { get; set; } = "";     // Source place (where crowd is high)
+        public string SuggestedAlternative { get; set; } = "";
+        public string Reason { get; set; } = "";            // Why this suggestion
+        public double DistanceKm { get; set; }              // Distance to alternative
+        public double Latitude { get; set; }                // Alt coordinates
         public double Longitude { get; set; }
-        public string Category { get; set; } = default!;
-        public string Source { get; set; } = default!;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.

@@ -1,0 +1,87 @@
+﻿using Microsoft.JSInterop;
+
+public static class JSInterop
+{
+    public static IJSRuntime? _js;
+
+    public static void Init(IJSRuntime js) => _js = js;
+
+    public static async Task SetLocalStorage(string key, string value) =>
+        await _js!.InvokeVoidAsync("jsInterop.setLocalStorage", key, value);
+
+    public static async Task<string?> GetLocalStorage(string key) =>
+        await _js!.InvokeAsync<string>("jsInterop.getLocalStorage", key);
+
+    public static async Task RemoveLocalStorage(string key) =>
+        await _js!.InvokeVoidAsync("jsInterop.removeLocalStorage", key);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.*/

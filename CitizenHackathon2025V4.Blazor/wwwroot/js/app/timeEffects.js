@@ -29,7 +29,16 @@
     draw();
 }
 
-
+window.initScrollFade = function () {
+    const sections = document.querySelectorAll(".fade-on-scroll");
+    window.addEventListener("scroll", () => {
+        sections.forEach(sec => {
+            const rect = sec.getBoundingClientRect();
+            const opacity = 1 - Math.max(0, rect.top / window.innerHeight);
+            sec.style.opacity = Math.max(0, Math.min(opacity, 1));
+        });
+    });
+};
 
 
 

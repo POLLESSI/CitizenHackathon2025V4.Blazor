@@ -1,88 +1,135 @@
-﻿using System.Net.Http.Json;
-using CitizenHackathon2025V4.Blazor.Client.Models;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using Microsoft.JSInterop;
+using System.Threading.Tasks;
+using CitizenHackathon2025V4.Blazor.Client.Pages.Auths;
 
 namespace CitizenHackathon2025V4.Blazor.Client.Services
 {
     public class UserService
     {
-#nullable disable
+    #nullable disable
         private readonly HttpClient _httpClient;
+        private readonly AuthService _authService;
+        private string? _accessToken;
+        private readonly IJSRuntime _jsRuntime;
+        private const string TokenKey = "access_token";
 
-        public UserService(HttpClient httpClient)
+        public UserService(HttpClient httpClient, AuthService authService, IJSRuntime jsRuntime)
         {
             _httpClient = httpClient;
+            _authService = authService;
+            _jsRuntime = jsRuntime;
         }
-        public async Task<UserModel> GetUserByEmailAsync(string email)
+
+        public async Task<List<JwtPayload>> GetUsersAsync()
         {
-            var response = await _httpClient.GetAsync($"api/user/getbyemail/{email}");
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<UserModel>();
-            }
-            return null;
+            var token = await _authService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return new List<JwtPayload>();
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var users = await _httpClient.GetFromJsonAsync<List<JwtPayload>>("user");
+            return users ?? new List<JwtPayload>();
         }
-        public async Task<UserModel> GetUserByIdAsync(int id)
+        public async Task SetAccessTokenAsync(string token)
         {
-            var response = await _httpClient.GetAsync($"api/user/{id}");
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<UserModel>();
-            }
-            return null;
+            await _jsRuntime.InvokeVoidAsync("localStorage.setItem", TokenKey, token);
         }
-        public async Task<IEnumerable<UserModel>> GetAllActiveUsersAsync()
+
+        public async Task<string?> GetAccessTokenAsync()
         {
-            var response = await _httpClient.GetAsync("api/user/active");
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<IEnumerable<UserModel>>();
-            }
-            return Enumerable.Empty<UserModel>();
+            return await _jsRuntime.InvokeAsync<string>("localStorage.getItem", TokenKey);
         }
-        public async Task<UserModel> RegisterUserAsync(string email, string password, UserModel role)
+        public async Task RemoveAccessTokenAsync()
         {
-            var user = new UserModel
-            {
-                Email = email,
-                PasswordHash = password, // In a real application, hash the password
-                Role = role.Role,
-                Status = 1 // Assuming 1 means active
-            };
-            var response = await _httpClient.PostAsJsonAsync("api/user/register", user);
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<UserModel>();
-            }
-            throw new Exception("Failed to register user");
-        }
-        public async Task<bool> LoginAsync(string email, string password)
-        {
-            var user = new UserModel
-            {
-                Email = email,
-                PasswordHash = password // In a real application, hash the password
-            };
-            var response = await _httpClient.PostAsJsonAsync("api/user/login", user);
-            return response.IsSuccessStatusCode;
-        }
-        public async Task DeactivateUserAsync(int id)
-        {
-            var response = await _httpClient.DeleteAsync($"api/user/{id}");
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Failed to deactivate user");
-            }
-        }
-        public void SetRole(int id, string? role)
-        {
-            // This method is a placeholder for setting user roles.
-            // In a real application, you would implement the logic to update the user's role.
-        }
-        public UserModel? UpdateUser(UserModel user)
-        {
-            // This method is not implemented in the original code.
-            // You can implement it based on your requirements.
-            throw new NotImplementedException("UpdateUser method is not implemented.");
+            await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", TokenKey);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Copyrigtht (c) 2025 Citizen Hackathon https://github.com/POLLESSI/Citizenhackathon2025V4.Blazor.Client. All rights reserved.
